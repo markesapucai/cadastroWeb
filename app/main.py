@@ -3,12 +3,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app.core.config import settings
 from app.routers import auth, queries, dashboard, reports
+from app.routers import web
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     description="Plataforma de consultas cadastrais com conformidade LGPD.",
     version="1.0.0"
 )
+
+app.include_router(web.router)
 
 # Configuração de CORS
 app.add_middleware(

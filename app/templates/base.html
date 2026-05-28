@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CadastroWeb{% endblock %}</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <nav class="bg-blue-600 text-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/web/dashboard" class="text-xl font-bold tracking-wide">CadastroWeb</a>
+            <div id="nav-links" class="hidden space-x-4">
+                <a href="/web/dashboard" class="hover:underline">Painel</a>
+                <a href="/web/report" class="hover:underline">Relatório Mensal</a>
+                <button id="logout-btn" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm font-semibold transition">Sair</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-gray-800 text-gray-400 py-4 text-center text-sm border-t border-gray-700">
+        &copy; 2026 CadastroWeb. Em conformidade estrita com a LGPD.
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = localStorage.getItem("access_token");
+            const isLoginPage = window.location.pathname.includes("/login") || window.location.pathname === "/web/";
+            
+            // Se tiver token e estiver na tela de login, joga pro dashboard
+            if (token && isLoginPage) {
+                window.location.href = "/web/dashboard";
+                return;
+            }
+            
+            // Se NÃO tiver token e NÃO estiver na tela de login, joga pro login
+            if (!token && !isLoginPage) {
+                window.location.href = "/web/login";
+                return;
+            }
+
+            // Exibe botões de navegação se estiver logado
+            if (token && document.getElementById("nav-links")) {
+                document.getElementById("nav-links").classList.remove("hidden");
+            }
+
+            // Logout
+            const logoutBtn = document.getElementById("logout-btn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", () => {
+                    localStorage.removeItem("access_token");
+                    window.location.href = "/web/login";
+                });
+            }
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

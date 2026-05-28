@@ -2,9 +2,15 @@ from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, Asyn
 from sqlalchemy.orm import DeclarativeBase
 from app.core.config import settings
 
-# Substitui o prefixo postgres:// padrão do Render por postgresql+asyncpg://
-SQLALCHEMY_DATABASE_URL = settings.DATABASE_URL.replace("postgres://", "postgresql+asyncpg://")
+# Garante a injeção do driver assíncrono independentemente do formato do Render
+uri = settings.DATABASE_URL
+print("DATABASE_URL:", uri)
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql+asyncpg://", 1)
+elif uri.startswith("postgresql://") and not uri.startswith("postgresql+asyncpg://"):
+    uri = uri.replace("postgresql://", "postgresql+asyncpg://", 1)
 
+SQLALCHEMY_DATABASE_URL = uri
 engine = create_async_engine(
     SQLALCHEMY_DATABASE_URL,
     echo=False,
