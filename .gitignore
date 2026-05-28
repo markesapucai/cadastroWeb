@@ -1,0 +1,66 @@
+# Arquivos gerados por sistemas operacionais
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Diretórios e arquivos de IDEs / Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+*.code-workspace
+workspace.xml
+
+# Logs e arquivos temporários
+*.log
+*.log.*
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.yarn/
+
+# Dependências (nunca devem ir para o repositório)
+/node_modules/
+/vendor/
+/jspm_packages/
+
+# Ambiente e chaves (dados sigilosos)
+.env
+.env.local
+.env.*.local
+secret.json
+*.key
+
+# Compilações e Builds
+/build/
+/dist/
+/out/
+/target/
+*.pyc
+*.pyo
+*.pyd
+*.class
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Cobertura de testes e relatórios
+/coverage/
+.nyc_output/
+*.lcov
+
+# Banco de dados locais e SQLite
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
